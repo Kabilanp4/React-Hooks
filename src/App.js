@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useReducer } from "react";
+import "./App.css";
+const initialState = {
+  message: "kabilan",
+};
+function reducer(state, action) {
+  switch (action.type) {
+    case "kabilan":
+      return {
+        message: "ohh Kabilan! You are great!!",
+      };
+    case "karpagam":
+      return {
+        message: `you should be blessed to have your brother ${state.message}`,
+      };
+    default:
+      return {
+        message: "Nothing",
+      };
+  }
+}
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <p>{state.message}</p>
+      <button onClick={() => dispatch({ type: "kabilan" })}>kabilan</button>
+      <button onClick={() => dispatch({ type: "karpagam" })}>karpagam</button>
+    </>
   );
 }
 
