@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { FaStar } from "react-icons/fa";
+import "./App.css";
 
+const createArray = (length) => [...Array(length)];
+
+function Star({ selected = false, onSelect }) {
+  return <FaStar color={selected ? "red" : "grey"} onClick={onSelect} />;
+}
+const StartComponent = ({ totalStars }) => {
+  const [star, setStar] = useState(0);
+  return (
+    <>
+      {createArray(totalStars).map((d, i) => (
+        <Star key={i} selected={star > i} onSelect={() => setStar(i + 1)} />
+      ))}
+      <p>
+        selected {star} out of {totalStars}
+      </p>
+    </>
+  );
+};
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StartComponent totalStars={5} />
     </div>
   );
 }
