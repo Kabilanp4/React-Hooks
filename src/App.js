@@ -1,31 +1,25 @@
-import { useReducer } from "react";
+import { useRef } from "react";
 import "./App.css";
-const initialState = {
-  message: "kabilan",
-};
-function reducer(state, action) {
-  switch (action.type) {
-    case "kabilan":
-      return {
-        message: "ohh Kabilan! You are great!!",
-      };
-    case "karpagam":
-      return {
-        message: `you should be blessed to have your brother ${state.message}`,
-      };
-    default:
-      return {
-        message: "Nothing",
-      };
-  }
-}
+
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const sound = useRef();
+  const color = useRef();
+
+  const submit = (e) => {
+    e.preventDefault();
+    const soundVal = sound.current.value;
+    const colorVal = color.current.value;
+    alert(`${soundVal} sounds like ${colorVal}`);
+    sound.current.value = "";
+    color.current.value = "";
+  };
   return (
     <>
-      <p>{state.message}</p>
-      <button onClick={() => dispatch({ type: "kabilan" })}>kabilan</button>
-      <button onClick={() => dispatch({ type: "karpagam" })}>karpagam</button>
+      <form onSubmit={submit}>
+        <input ref={sound} type="text" placeholder="Sound..." />
+        <input ref={color} type="color" />
+        <button>Add</button>
+      </form>
     </>
   );
 }
