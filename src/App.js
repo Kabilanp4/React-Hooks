@@ -1,23 +1,20 @@
-import { useRef } from "react";
 import "./App.css";
-
+import { useInput } from "./useInput";
 function App() {
-  const sound = useRef();
-  const color = useRef();
+  const [soundProps, resetSoundProps] = useInput("");
+  const [colorProps, resetColorProps] = useInput("#000000");
 
   const submit = (e) => {
     e.preventDefault();
-    const soundVal = sound.current.value;
-    const colorVal = color.current.value;
-    alert(`${soundVal} sounds like ${colorVal}`);
-    sound.current.value = "";
-    color.current.value = "";
+    alert(`${soundProps.value} sounds like ${colorProps.value}`);
+    resetSoundProps();
+    resetColorProps();
   };
   return (
     <>
       <form onSubmit={submit}>
-        <input ref={sound} type="text" placeholder="Sound..." />
-        <input ref={color} type="color" />
+        <input {...soundProps} type="text" placeholder="Sound..." />
+        <input {...colorProps} type="color" />
         <button>Add</button>
       </form>
     </>
