@@ -1,16 +1,26 @@
-import { useTrees } from ".";
+import { useState } from "react";
 import "./App.css";
-
+import { FetchComponent } from "./FetchComponent";
+import { InputComponent } from "./InputComponent";
 function App() {
-  const { trees } = useTrees();
+  const [login, setLogin] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [data, setData] = useState("");
+  const handleChange = (e) => {
+    setLogin(e.target.value);
+  };
+  const onClickEnter = () => {
+    setLogin("");
+    setData(login);
+  };
   return (
     <>
-      <p>The React Hooks i've learned so far:</p>
-      <ul>
-        {trees.map((data) => (
-          <li key={data.id}>{data.type}</li>
-        ))}
-      </ul>
+      <InputComponent
+        login={login}
+        handleChange={handleChange}
+        onClickEnter={onClickEnter}
+      />
+      <FetchComponent login={data} />
     </>
   );
 }
